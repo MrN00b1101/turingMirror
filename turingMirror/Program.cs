@@ -10,13 +10,13 @@ namespace turingMirror
     {
         private char readFromTape;
         private char actualState;
-        private char nextStatE;
+        private char nextState;
         private char writeToTape;
         private int direction;
 
         public char ReadFromTape { get => readFromTape; set => readFromTape = value; }
         public char ActualState { get => actualState; set => actualState = value; }
-        public char NextState { get => nextStatE; set => nextStatE = value; }
+        public char NextState { get => nextState; set => nextState = value; }
         public char WriteToTape { get => writeToTape; set => writeToTape = value; }
         public int Direction { get => direction; set => direction = value; }// (-1 -> balra, 1->jobbra, 0 -> marad)
         public rule(char readFromTape, char actualState, char writeToTape, char nextState, int direction)
