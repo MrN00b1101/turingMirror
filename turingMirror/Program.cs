@@ -18,7 +18,7 @@ namespace turingMirror
         public char actualState { get => actualState1; set => actualState1 = value; }
         public char nextState { get => nextState1; set => nextState1 = value; }
         public char writeToTape { get => writeToTape1; set => writeToTape1 = value; }
-        public int direction { get => direction1; set => direction1 = value; }// (-1 -> balra, 1->jobbra)
+        public int direction { get => direction1; set => direction1 = value; }// (-1 -> balra, 1->jobbra, 0 -> marad)
         public rule(char readFromTape, char actualState, char writeToTape, char nextState, int direction)
         {
             this.nextState = nextState;
@@ -28,14 +28,14 @@ namespace turingMirror
             this.direction = direction;
         }
     }
-    class turringMirrorClass
+    class turintAutomat
     {
         int i;
         char[] tape;
         List<rule> ruleSet;
         char state;
         
-        public turringMirrorClass(string input, List<rule> ruleSet)
+        public turintAutomat(string input, List<rule> ruleSet)
         {
             input = 'B' + input + 'B';
             this.i = 1;
@@ -82,27 +82,20 @@ namespace turingMirror
                
             }
             if (!find) this.state = 'x';
-            /*
-             delta	  a	      b       c       d       e
-                0	B b <	0 b <	0 c <	0 d >	1 d >
-                1	B c <	1 b <	1 c <	0 e >	1 e >
-                B	-----	B d >	B e >	0 a >	1 a >
-
-             */
         }
     }
     class Program
 
-    {
-        /*
+    {  
+        static void Main(string[] args)
+        {
+            /*
             delta	  a	    x
                0	0 a > 0 x >
                1	1 a > 1 x >
                x   X x > X x >
                B	B z - B x >
             */
-        static void Main(string[] args)
-        {
             List<rule> onlyBin = new List<rule>();
             onlyBin.Add(new rule('1', 'a', '1', 'a', 1));
             onlyBin.Add(new rule('0', 'a', '0', 'a', 1));
@@ -113,16 +106,13 @@ namespace turingMirror
             Console.WriteLine("Kérem a bemenetet!");
             string input = Console.ReadLine();
            
-            turringMirrorClass validatedInput = new turringMirrorClass(input, onlyBin);
+            turintAutomat validatedInput = new turintAutomat(input, onlyBin);
             while (!validatedInput.validate())
             {
                 Console.WriteLine("Csak '0' és '1' karakter szerepelhet az inputban! Adj meg új bemenetet!");
                 input = Console.ReadLine();
-                validatedInput = new turringMirrorClass(input, onlyBin);
+                validatedInput = new turintAutomat(input, onlyBin);
             }
-            
-            //  onlyBin.Add()
-
             /*
              delta	  a	      b       c       d       e
                 0	B b <	0 b <	0 c <	0 d >	1 d >
@@ -143,12 +133,12 @@ namespace turingMirror
             mirrorRules.Add(new rule('1', 'd', '0', 'e', 1));
             mirrorRules.Add(new rule('1', 'e', '1', 'e', 1));
 
-            mirrorRules.Add(new rule('B', 'a', 'B', 'z', 0));
+            mirrorRules.Add(new rule('B', 'a', 'B', 'z', -1));
             mirrorRules.Add(new rule('B', 'b', 'B', 'd', 1));
             mirrorRules.Add(new rule('B', 'c', 'B', 'e', 1));
             mirrorRules.Add(new rule('B', 'd', '0', 'a', 1));
             mirrorRules.Add(new rule('B', 'e', '1', 'a', 1));
-            turringMirrorClass turringMirrorClass = new turringMirrorClass(input, mirrorRules);
+            turintAutomat turringMirrorClass = new turintAutomat(input, mirrorRules);
             Console.WriteLine(turringMirrorClass.turn());
         }
     }
