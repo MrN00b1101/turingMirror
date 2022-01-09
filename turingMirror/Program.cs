@@ -28,14 +28,14 @@ namespace turingMirror
             this.direction = direction;
         }
     }
-    class turintAutomat
+    class turingAutomat
     {
         int i;
         char[] tape;
         List<rule> ruleSet;
         char state;
         
-        public turintAutomat(string input, List<rule> ruleSet)
+        public turingAutomat(string input, List<rule> ruleSet)
         {
             input = 'B' + input + 'B';
             this.i = 1;
@@ -106,12 +106,12 @@ namespace turingMirror
             Console.WriteLine("Kérem a bemenetet!");
             string input = Console.ReadLine();
            
-            turintAutomat validatedInput = new turintAutomat(input, onlyBin);
+            turingAutomat validatedInput = new turingAutomat(input, onlyBin);
             while (!validatedInput.validate())
             {
                 Console.WriteLine("Csak '0' és '1' karakter szerepelhet az inputban! Adj meg új bemenetet!");
                 input = Console.ReadLine();
-                validatedInput = new turintAutomat(input, onlyBin);
+                validatedInput = new turingAutomat(input, onlyBin);
             }
             /*
              delta	  a	      b       c       d       e
@@ -138,7 +138,7 @@ namespace turingMirror
             mirrorRules.Add(new rule('B', 'c', 'B', 'e', 1));
             mirrorRules.Add(new rule('B', 'd', '0', 'a', 1));
             mirrorRules.Add(new rule('B', 'e', '1', 'a', 1));
-            turintAutomat turringMirrorClass = new turintAutomat(input, mirrorRules);
+            turingAutomat turringMirrorClass = new turingAutomat(input, mirrorRules);
             Console.WriteLine(turringMirrorClass.turn());
         }
     }
