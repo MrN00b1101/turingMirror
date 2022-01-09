@@ -31,10 +31,9 @@ namespace turingMirror
     class turringMirrorClass
     {
         int i;
-        //string input;
         char[] tape;
         List<rule> ruleSet;
-        char state;//a;b;c;d;e
+        char state;
         
         public turringMirrorClass(string input, List<rule> ruleSet)
         {
@@ -54,7 +53,7 @@ namespace turingMirror
             if (this.state != 'x') return true;
             return false;
         }
-        public string fordit()
+        public string turn()
         {
             StringBuilder forditott = new StringBuilder();
             for (int j =1; j < tape.Length-1; j++) forditott.Append(tape[j]);
@@ -90,114 +89,18 @@ namespace turingMirror
                 B	-----	B d >	B e >	0 a >	1 a >
 
              */
-            /*
-            switch (this.state)
-            {
-                case 'a':
-                    switch ((char)this.tape.GetValue(i))
-                    {
-                        case '0':
-                            this.write('B');
-                            this.state = 'b';
-                            this.i--;
-                            break;
-                        case '1':
-                            this.write('B');
-                            this.state = 'c';
-                            this.i--;
-                            break; ;
-                        case 'B':
-                            this.state = 'z';
-                            break;
-                    }
-                    break;
-                case 'b':
-                    switch ((char)this.tape.GetValue(i))
-                    {
-                        case '0':
-                            this.write('0');
-                            this.state = 'b';
-                            this.i--;
-                            break;
-                        case '1':
-                            this.write('1');
-                            this.state = 'b';
-                            this.i--;
-                            break;
-                        case 'B':
-                            this.write('B');
-                            this.state = 'd';
-                            this.i++;
-                            break;
-                    }
-                    break;
-                case 'c':
-                    switch ((char)this.tape.GetValue(i))
-                    {
-                        case '0':
-                            this.write('0');
-                            this.state = 'c';
-                            this.i--;
-                            break;
-                        case '1':
-                            this.write('1');
-                            this.state = 'c';
-                            this.i--;
-                            break;
-                        case 'B':
-                            this.write('B');
-                            this.state = 'e';
-                            this.i++;
-                            break;
-                    }
-                    break;
-                case 'd':
-                    switch ((char)this.tape.GetValue(i))
-                    {
-                        case '0':
-                            this.write('0');
-                            this.state = 'd';
-                            this.i++;
-                            break;
-                        case '1':
-                            this.write('0');
-                            this.state = 'e';
-                            this.i++;
-                            break; ;
-                        case 'B':
-                            this.write('0');
-                            this.state = 'a';
-                            this.i++;
-                            break; ;
-                    }
-                    break;
-                case 'e':
-                    switch ((char)this.tape.GetValue(i))
-                    {
-                        case '0':
-                            this.write('1');
-                            this.state = 'd';
-                            this.i++;
-                            break; ;
-                        case '1':
-                            this.write('1');
-                            this.state = 'e';
-                            this.i++;
-                            break; ;
-                        case 'B':
-                            this.write('1');
-                            this.state = 'a';
-                            this.i++;
-                            break; ;
-                    }
-                    break;
-            }
-*/
         }
     }
     class Program
 
     {
+        /*
+            delta	  a	    x
+               0	0 a > 0 x >
+               1	1 a > 1 x >
+               x   X x > X x >
+               B	B z - B x >
+            */
         static void Main(string[] args)
         {
             List<rule> onlyBin = new List<rule>();
@@ -209,13 +112,7 @@ namespace turingMirror
             onlyBin.Add(new rule('B', 'x', 'B', 'z', 0));
             Console.WriteLine("Kérem a bemenetet!");
             string input = Console.ReadLine();
-            /*
-             delta	  a	    x
-                0	0 a > 0 x >
-                1	1 a > 1 x >
-                x   X x > X x >
-                B	B z - B x >
-             */
+           
             turringMirrorClass validatedInput = new turringMirrorClass(input, onlyBin);
             while (!validatedInput.validate())
             {
@@ -252,8 +149,7 @@ namespace turingMirror
             mirrorRules.Add(new rule('B', 'd', '0', 'a', 1));
             mirrorRules.Add(new rule('B', 'e', '1', 'a', 1));
             turringMirrorClass turringMirrorClass = new turringMirrorClass(input, mirrorRules);
-            turringMirrorClass.fordit();
-            Console.WriteLine(turringMirrorClass.fordit());
+            Console.WriteLine(turringMirrorClass.turn());
         }
     }
 }
