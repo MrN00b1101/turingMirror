@@ -8,24 +8,24 @@ namespace turingMirror
 {
     class rule
     {
-        private char readFromTape1;
-        private char actualState1;
-        private char nextState1;
-        private char writeToTape1;
-        private int direction1;
+        private char readFromTape;
+        private char actualState;
+        private char nextStatE;
+        private char writeToTape;
+        private int direction;
 
-        public char readFromTape { get => readFromTape1; set => readFromTape1 = value; }
-        public char actualState { get => actualState1; set => actualState1 = value; }
-        public char nextState { get => nextState1; set => nextState1 = value; }
-        public char writeToTape { get => writeToTape1; set => writeToTape1 = value; }
-        public int direction { get => direction1; set => direction1 = value; }// (-1 -> balra, 1->jobbra, 0 -> marad)
+        public char ReadFromTape { get => readFromTape; set => readFromTape = value; }
+        public char ActualState { get => actualState; set => actualState = value; }
+        public char NextState { get => nextStatE; set => nextStatE = value; }
+        public char WriteToTape { get => writeToTape; set => writeToTape = value; }
+        public int Direction { get => direction; set => direction = value; }// (-1 -> balra, 1->jobbra, 0 -> marad)
         public rule(char readFromTape, char actualState, char writeToTape, char nextState, int direction)
         {
-            this.nextState = nextState;
-            this.actualState = actualState;
-            this.writeToTape = writeToTape;
-            this.readFromTape = readFromTape;
-            this.direction = direction;
+            this.NextState = nextState;
+            this.ActualState = actualState;
+            this.WriteToTape = writeToTape;
+            this.ReadFromTape = readFromTape;
+            this.Direction = direction;
         }
     }
     class turingAutomat
@@ -71,11 +71,11 @@ namespace turingMirror
             bool find = false;
             foreach (var rule in ruleSet)
             {
-                if(rule.readFromTape == read() && rule.actualState == this.state)
+                if(rule.ReadFromTape == read() && rule.ActualState == this.state)
                 {                   
-                    this.write(rule.writeToTape);
-                    this.state = rule.nextState;
-                    this.i = this.i + rule.direction;
+                    this.write(rule.WriteToTape);
+                    this.state = rule.NextState;
+                    this.i = this.i + rule.Direction;
                     find = true;
                     break;
                 }
